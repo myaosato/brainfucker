@@ -4,13 +4,23 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="index.css" type="text/css">
   <script src="brainfucker.js"></script>
+  <script>
+    let run = brainFucker(['>', '<', '+', '-', '.', ',', '[', ']']);
+    let make = () => {
+      let commandChars = ['incp', 'decp', 'incv', 'decv', 'put', 'get', 'start', 'end']
+        .map((elt) => document.getElementById(elt).value);
+      let jsCode = 'let run = (' + brainFucker.toString() + ')([' + commandChars.map(elt => '\'' + elt + '\'').join(', ') + '])';
+      document.getElementById('htmlCode').value = htmlCode(jsCode, makeHello(commandChars));
+    };
+  </script>
   <title>BRAIN FUCKER</title>
 </head>
 <body>
   <main>
+    <h1>Brain Fucker</h1>
     <div>
-      <h2>CODE</h2>
-      <textarea id="code" cols="80" rows="10" ></textarea>
+      <h2>CODE(Brainfuck)</h2>
+      <textarea id="code" cols="80" rows="10"></textarea>
     </div>
     <div>
       <h2>INPUT</h2>
@@ -23,6 +33,29 @@
       <h2>OUTPUT<h2>
       <textarea id="output" cols="80" rows="3" readonly></textarea>
     </div>
+    <hr>
+    <div>
+      <h2>CHARS<h2>
+      <input id="incp" type="text" pattern="[\x20-\x7E]" value=">">
+      <input id="decp" type="text" pattern="[\x20-\x7E]" value="<">
+      <input id="incv" type="text" pattern="[\x20-\x7E]" value="+">
+      <input id="decv" type="text" pattern="[\x20-\x7E]" value="-"><br>
+      <input id="put" type="text" pattern="[\x20-\x7E]" value=".">
+      <input id="get" type="text" pattern="[\x20-\x7E]" value=",">
+      <input id="start" type="text" pattern="[\x20-\x7E]" value="[">
+      <input id="end" type="text" pattern="[\x20-\x7E]" value="]">
+    </div>
+    <div>
+      <button id="make" type="button" onclick="make();">MAKE</button>
+    </div>
+    <div>
+      <h2>CODE(JavaScript)<h2>
+      <textarea id="htmlCode" cols="80" rows="10" readonly></textarea>
+    </div>
   </main>
+  <script>
+    let helloWorld = '+++++++++[>++++++++>+++++++++++>+++++<<<-]>.>++.+++++++..+++.>-.------------.<++++++++.--------.+++.------.--------.>+.';
+    document.getElementById('code').value = helloWorld;
+  </script>
 </body>
 </html>

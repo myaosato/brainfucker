@@ -1,23 +1,36 @@
+html {
+  background: linear-gradient(180deg, #333333, #666666);
+  color: white;
+}
+body {
+  height: 100%;
+}
 main {
-
+  text-align: center;
+}
+h1, h2 {
+  color: white;
 }
 textarea#code, textarea#input, textarea#output {
   resize: none;
+  border: solid 5px white;
+  border-radius: 10px;
 }
-button#run{
+button#run, button#make{
   margin: 10px auto 10px 20px;
   height: 40px;
   width: 80px;
   border:none;
+  font-size:20px;
   background-color: #2196F3;
   border-radius: 5px;
   border-bottom: solid 3px #0D47A1;
   color: #FFFFFF;
 }
-button#run:hover{
+button#run:hover, button#make:hover{
   cursor: pointer;
 }
-button#run:active{
+button#run:active, button#make:active{
   margin: 13px auto 10px 20px;
   height: 37px;
   border-bottom: none;
