@@ -7,10 +7,10 @@
   <script>
     let run = brainFucker(['>', '<', '+', '-', '.', ',', '[', ']']);
     let make = () => {
-      let commandChars = ['incp', 'decp', 'incv', 'decv', 'put', 'get', 'start', 'end']
+      let commandStrs = ['incp', 'decp', 'incv', 'decv', 'put', 'get', 'start', 'end']
         .map((elt) => document.getElementById(elt).value);
-      let jsCode = 'let run = (' + brainFucker.toString() + ')([' + commandChars.map(elt => '\'' + elt + '\'').join(', ') + '])';
-      document.getElementById('htmlCode').value = htmlCode(jsCode, makeHello(commandChars));
+      let jsCode = 'let run = (' + brainFucker.toString() + ')([' + commandStrs.map(elt => '\'' + elt + '\'').join(', ') + '])';
+      document.getElementById('htmlCode').value = htmlCode(jsCode, makeHello(commandStrs));
     };
   </script>
   <title>BRAIN FUCKER</title>
@@ -35,15 +35,23 @@
     </div>
     <hr>
     <div>
-      <h2>CHARS<h2>
-      <input id="incp" type="text" pattern="[\x20-\x7E]" value=">">
-      <input id="decp" type="text" pattern="[\x20-\x7E]" value="<">
-      <input id="incv" type="text" pattern="[\x20-\x7E]" value="+">
-      <input id="decv" type="text" pattern="[\x20-\x7E]" value="-"><br>
-      <input id="put" type="text" pattern="[\x20-\x7E]" value=".">
-      <input id="get" type="text" pattern="[\x20-\x7E]" value=",">
-      <input id="start" type="text" pattern="[\x20-\x7E]" value="[">
-      <input id="end" type="text" pattern="[\x20-\x7E]" value="]">
+      <h2>COMMANDS<h2>
+      <h3>increment the data pointer<h3>
+      <input id="incp" type="text" value=">">
+      <h3>decrement the data pointer<h3>
+      <input id="decp" type="text" value="<">
+      <h3>increment the byte at the data pointer<h3>
+      <input id="incv" type="text" value="+">
+      <h3>decrement the byte at the data pointer<h3>
+      <input id="decv" type="text" value="-"><br>
+      <h3>output the byte at the data pointer<h3>
+      <input id="put" type="text" value=".">
+      <h3>accept one byte of input, storing its value in the byte at the data pointer<h3>
+      <input id="get" type="text" value=",">
+      <h3>jump (if the byte at the data pointer is zero) <h3>
+      <input id="start" type="text" value="[">
+      <h3>jump (if the byte at the data pointer is nonzero) <h3>
+      <input id="end" type="text" value="]">
     </div>
     <div>
       <button id="make" type="button" onclick="make();">MAKE</button>

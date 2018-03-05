@@ -1,5 +1,5 @@
-let brainFucker = (commandChars)  => {
-// pointer and array
+let brainFucker = (commandStrs)  => {
+  // pointer and array
   let pointer = 0;
   let array = new Uint8Array(30000);
   // output and input
@@ -17,7 +17,8 @@ let brainFucker = (commandChars)  => {
     });
   };
   // mapping
-  register(commandChars);
+  register(commandStrs);
+
   // inner status
   let dests = new Map();
   let setDests = (spos, epos) => {
@@ -66,16 +67,32 @@ let brainFucker = (commandChars)  => {
     }
   };
 
+  // tokenize
+  let lens = commandStrs.map((elt) => elt.length).filter((elt, ind, arr) => arr.indexOf(elt) === ind);
+  let tokenize = (str, tokens) => {
+    if (str === '') return tokens;
+    let token;
+    for (let ind in lens) {
+      token = commandStrs.find((elt) => elt === str.slice(0, lens[ind]));
+      if (token) break;
+    }
+    if (token) {
+      tokens.push(token);
+      return tokenize(str.slice(token.length), tokens);
+    } else {
+      throw Error('parse error');
+    }
+  };
+
   // interface
   //// read token and make code
   let makeCode = (codeStr) => {
-    return codeStr.replace(/\s+/, '')
-      .split('')
+    return tokenize(codeStr.replace(/\s+/, ''), []) // TODO
       .map((elt, ind) => {
         let command = codeMap.get(elt);
-        if (elt === schar) {
+        if (elt === schar) { // TODO
           parenStack.push(ind);
-        } else if (elt === echar) {
+        } else if (elt === echar) { // TODO
           setDests(parenStack.pop(), ind);
         }
         return command;
